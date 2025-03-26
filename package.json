@@ -1,0 +1,134 @@
+{
+  "name": "flutter-widget-navigator",
+  "displayName": "Flutter Widget Navigator",
+  "description": "Navigate and modify Flutter widget trees with ease. Quickly jump between widgets, add properties, and select widget trees using keyboard shortcuts.",
+  "version": "1.0.0",
+  "publisher": "valentindrolet",
+  "repository": "https://github.com/valentindrolet/flutter-widget-navigator",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "flutter",
+    "dart",
+    "widget",
+    "navigation",
+    "productivity"
+  ],
+  "icon": "images/icon.png",
+  "activationEvents": [
+    "onLanguage:dart"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "flutter.navigateToParentWidget",
+        "title": "Flutter: Navigate to Parent Widget"
+      },
+      {
+        "command": "flutter.navigateToChildWidget",
+        "title": "Flutter: Navigate to Child Widget"
+      },
+      {
+        "command": "flutter.navigateToPreviousSibling",
+        "title": "Flutter: Navigate to Previous Sibling Widget"
+      },
+      {
+        "command": "flutter.navigateToNextSibling",
+        "title": "Flutter: Navigate to Next Sibling Widget"
+      },
+      {
+        "command": "flutter.navigateToFirstSibling",
+        "title": "Flutter: Navigate to First Sibling Widget"
+      },
+      {
+        "command": "flutter.navigateToLastSibling",
+        "title": "Flutter: Navigate to Last Sibling Widget"
+      },
+      {
+        "command": "flutter.selectCurrentWidget",
+        "title": "Flutter: Select Current Widget"
+      },
+      {
+        "command": "flutter.addPropertyToWidget",
+        "title": "Flutter: Add Property to Widget",
+        "category": "Flutter"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "flutter.navigateToParentWidget",
+        "key": "alt+ctrl+up",
+        "mac": "ctrl+alt+cmd+up",
+        "when": "editorTextFocus && editorLangId == dart"
+      },
+      {
+        "command": "flutter.navigateToChildWidget",
+        "key": "alt+ctrl+down",
+        "mac": "ctrl+alt+cmd+down",
+        "when": "editorTextFocus && editorLangId == dart"
+      },
+      {
+        "command": "flutter.navigateToPreviousSibling",
+        "key": "alt+ctrl+left",
+        "mac": "ctrl+alt+cmd+left",
+        "when": "editorTextFocus && editorLangId == dart"
+      },
+      {
+        "command": "flutter.navigateToNextSibling",
+        "key": "alt+ctrl+right",
+        "mac": "ctrl+alt+cmd+right",
+        "when": "editorTextFocus && editorLangId == dart"
+      },
+      {
+        "command": "flutter.navigateToFirstSibling",
+        "key": "alt+ctrl+shift+left",
+        "mac": "ctrl+alt+cmd+shift+left",
+        "when": "editorTextFocus && editorLangId == dart"
+      },
+      {
+        "command": "flutter.navigateToLastSibling",
+        "key": "alt+ctrl+shift+right",
+        "mac": "ctrl+alt+cmd+shift+right",
+        "when": "editorTextFocus && editorLangId == dart"
+      },
+      {
+        "command": "flutter.selectCurrentWidget",
+        "key": "alt+ctrl+l",
+        "mac": "cmd+alt+l",
+        "when": "editorTextFocus && editorLangId == dart"
+      },
+      {
+        "command": "flutter.addPropertyToWidget",
+        "key": "alt+ctrl+p",
+        "mac": "alt+cmd+p",
+        "when": "editorTextFocus && editorLangId == dart"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.98.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "eslint": "^9.21.0",
+    "typescript": "^5.7.3",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
