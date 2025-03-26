@@ -6,7 +6,7 @@
   "publisher": "valentindrolet",
   "repository": "https://github.com/valentindrolet/flutter-widget-navigator",
   "engines": {
-    "vscode": "^1.98.0"
+    "vscode": "^1.75.0"
   },
   "categories": [
     "Programming Languages",
