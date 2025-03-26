@@ -29,7 +29,7 @@ export function isWidgetDeclaration(line: string): boolean {
   const trimmed = line.trim();
   
   // Skip lines that are clearly property assignments
-  if (/^\w+\s*:/.test(trimmed)) {
+  if (/^\w+\s*:/.test(trimmed) && !/^\s*(child|children)\s*:/.test(trimmed)) {
     return false;
   }
   
@@ -37,7 +37,7 @@ export function isWidgetDeclaration(line: string): boolean {
   // 1. Widget declaration typically starts at beginning of line or after '='
   // 2. Followed by capitalized word (widget name)
   // 3. Followed by opening parenthesis
-  const widgetPattern = /(^|\s*=\s*|return\s+)([A-Z][a-zA-Z0-9_]*)\(/;
+  const widgetPattern = /(^|\s*=\s*|^\s*|const |child: |return\s+)([A-Z][a-zA-Z0-9_]*)/;
   return widgetPattern.test(trimmed);
 }
 
