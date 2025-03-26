@@ -51,6 +51,7 @@ export interface WidgetInfo {
     needsComma: boolean;
     previousPropertyLine: number;
     isCommaBefore: boolean;
+    onSameLine: boolean;
   }
   
   /**

@@ -1,15 +1,15 @@
-import * as vscode from 'vscode';
-import { PropertyInsertionInfo, PropertySuggestion } from './types';
+import * as vscode from "vscode";
+import { PropertyInsertionInfo, PropertySuggestion } from "./types";
 import {
   getIndentation,
   isChildProperty,
   isEmptyOrComment,
-  isWidgetDeclaration
-} from './utils/dart-parser';
+  isWidgetDeclaration,
+} from "./utils/dart-parser";
 import {
   getCurrentWidgetBoundaries,
-  getWidgetContent
-} from './utils/widget-detection';
+  getWidgetContent,
+} from "./utils/widget-detection";
 
 /**
  * Adds a property to the current widget
@@ -24,7 +24,9 @@ export async function addPropertyToWidget(): Promise<void> {
 
   const document = editor.document;
   if (document.languageId !== "dart") {
-    vscode.window.showInformationMessage("This command only works in Dart files");
+    vscode.window.showInformationMessage(
+      "This command only works in Dart files"
+    );
     return;
   }
 
@@ -34,14 +36,18 @@ export async function addPropertyToWidget(): Promise<void> {
     const currentWidget = getCurrentWidgetBoundaries(document, cursorPosition);
 
     if (!currentWidget) {
-      vscode.window.showInformationMessage("Could not determine current widget");
+      vscode.window.showInformationMessage(
+        "Could not determine current widget"
+      );
       return;
     }
 
     // Get the widget boundaries
     const widgetBoundaries = getWidgetContent(document, currentWidget);
     if (!widgetBoundaries) {
-      vscode.window.showInformationMessage("Could not determine widget boundaries");
+      vscode.window.showInformationMessage(
+        "Could not determine widget boundaries"
+      );
       return;
     }
 
@@ -60,7 +66,9 @@ export async function addPropertyToWidget(): Promise<void> {
       suggestedProperty.name
     );
     if (!insertInfo) {
-      vscode.window.showInformationMessage("Could not determine where to insert the property");
+      vscode.window.showInformationMessage(
+        "Could not determine where to insert the property"
+      );
       return;
     }
 
@@ -97,12 +105,15 @@ async function insertProperty(
     });
   }
 
+  const newLine = insertInfo.onSameLine ? "" : "\n";
+
   // Determine line start and end formatting
-  let startOfLine = "", endOfLine = "";
+  let startOfLine = "",
+    endOfLine = "";
   if (insertInfo.isCommaBefore) {
-    startOfLine = ", ";
+    startOfLine = ",${newLine} ";
   } else {
-    endOfLine = `,\${0}\n`;
+    endOfLine = `,\${0}${newLine}`;
   }
 
   // Insert the property with snippet support for tabbing between name and value
@@ -134,7 +145,6 @@ function findPropertyInsertionPoint(
   // Track special positions for certain properties
   const isTextWidget = widget.name === "Text" || widget.name.endsWith("Text");
 
-  
   // First check if there's an opening parenthesis
   const widgetLineText = document.lineAt(widgetLine).text;
   const openParenIndex = widgetLineText.indexOf("(", widget.character);
@@ -155,8 +165,9 @@ function findPropertyInsertionPoint(
           insertLine: widgetLine,
           insertIndent: textIndex + textContent.length + 1,
           needsComma: false,
-          isCommaBefore: true,
           previousPropertyLine: -1,
+          isCommaBefore: true,
+          onSameLine: true,
         };
       }
     }
@@ -168,6 +179,7 @@ function findPropertyInsertionPoint(
       needsComma: false,
       previousPropertyLine: -1,
       isCommaBefore: false,
+      onSameLine: true,
     };
   }
 
@@ -254,6 +266,7 @@ function findPropertyInsertionPoint(
       needsComma: false,
       previousPropertyLine: -1,
       isCommaBefore: false,
+      onSameLine: false,
     };
   }
 
@@ -272,6 +285,7 @@ function findPropertyInsertionPoint(
           .endsWith(","),
         previousPropertyLine: textContentProp.line,
         isCommaBefore: false,
+        onSameLine: false,
       };
     }
   }
@@ -288,6 +302,7 @@ function findPropertyInsertionPoint(
       needsComma,
       previousPropertyLine: lastPropertyLine,
       isCommaBefore: false,
+      onSameLine: false,
     };
   }
 
@@ -304,21 +319,23 @@ function findPropertyInsertionPoint(
     return {
       insertLine: childProp.line,
       insertIndent: expectedPropertyIndent,
-      needsComma:false,
-        // prevChildLine !== -1 &&
-        // !document.lineAt(prevChildLine).text.trim().endsWith(","),
+      needsComma: false,
+      // prevChildLine !== -1 &&
+      // !document.lineAt(prevChildLine).text.trim().endsWith(","),
       previousPropertyLine: prevChildLine,
       isCommaBefore: false,
+      onSameLine: false,
     };
   }
 
   // Default: Insert after the last property found
   return {
-    insertLine: insertAfterLine + 1, // Insert on the next line
+    insertLine: insertAfterLine, // Insert on the next line
     insertIndent: expectedPropertyIndent,
     needsComma,
     previousPropertyLine: lastPropertyLine,
     isCommaBefore: false,
+    onSameLine: false,
   };
 }
 

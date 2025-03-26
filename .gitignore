@@ -45,3 +45,5 @@ out
 .DS_Store
 
 .vscode
+
+*.vsix
