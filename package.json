@@ -2,7 +2,7 @@
   "name": "flutter-widget-navigator",
   "displayName": "Flutter Widget Navigator",
   "description": "Navigate and modify Flutter widget trees with ease. Quickly jump between widgets, add properties, and select widget trees using keyboard shortcuts.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "valentindrolet",
   "repository": "https://github.com/valentindrolet/flutter-widget-navigator",
   "engines": {

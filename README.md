@@ -7,7 +7,7 @@
 Quickly and efficiently navigate Flutter widget trees directly from your keyboard.
 Seamlessly move between parent, child and sibling widgets, add properties, and select entire widget trees without ever leaving your keyboard.
 
-![Flutter Widget Navigator in action](https://github.com/valentindrolet/flutter-widget-navigator/blob/main/images/demo.gif)
+![Flutter Widget Navigator in action](https://raw.githubusercontent.com/valentindrolet/flutter-widget-navigator/refs/heads/main/images/demo.gif)
 
 ## Features
 
